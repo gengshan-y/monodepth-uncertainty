@@ -1,0 +1,5 @@
+__pycache__
+*.pyc
+.ipynb_checkpoints
+utils/*.npy
+weights-kitti-nyu-resizespp-100-v2

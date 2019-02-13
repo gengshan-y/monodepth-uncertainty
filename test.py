@@ -44,7 +44,7 @@ left_numpy = left_numpy[np.newaxis,:,:,::-1].astype(float)/255
 # model
 left = tf.placeholder(tf.float32, (1,None,None,3))
 model = MonodepthModel(params, 'test', left, shape)
-outlist = [model.most_likely,model.expectation,model.entropy]
+outlist = [model.most_likely,model.expectation,model.entropy, model.resp]
 
 # SESSION
 config = tf.ConfigProto(allow_soft_placement=True)
@@ -71,8 +71,10 @@ depth_ml = output[0].squeeze()
 depth_exp = output[1].squeeze()
 entropy = output[2].squeeze()
 entropy[np.isnan(entropy)] = 0
+resp = output[3].squeeze()
 
 # output
 cv2.imwrite('./output-ml.png',   depth_ml/args.max_depth * 255.)
 cv2.imwrite('./output-exp.png', depth_exp/args.max_depth * 255.)
 cv2.imwrite('./output-entropy.png',entropy/entropy.max()*255)
+cv2.imwrite('./output-resp.png', resp*255)

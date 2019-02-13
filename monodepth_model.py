@@ -166,7 +166,13 @@ class MonodepthModel(object):
 
             # inference            
             self.prob = tf.nn.softmax(self.logits,-1)
-            self.resp = -tf.reduce_max(self.logits,-1,keepdims=True)
+
+            # ood
+            self.bprob = tf.clip_by_value(tf.nn.sigmoid(self.logits), 1e-6, 1-1e-6)
+            self.resp = tf.exp(tf.reduce_min( tf.log(1-self.bprob) ,-1,keepdims=True))
+            #self.resp = tf.exp(tf.reduce_sum( tf.log(1-self.bprob) ,-1,keepdims=True))
+            #self.resp = -tf.reduce_max(self.logits,-1,keepdims=True)
+
             self.most_likely, self.expectation, self.entropy, self.conf = get_stats(self.prob,self.n3,self.my3bins)
 
 

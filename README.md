@@ -35,10 +35,11 @@ NYU expected depth
 NYU entropy
 
 ## Citation
+```
 @InProceedings{yang2019inferring,
 author = {Yang, Gengshan and Hu, Peiyun and Ramanan, Deva},
 title = {Inferring distributions over depth from a single image},
 booktitle = {2019 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
 year = {2019}
 }
-
+```

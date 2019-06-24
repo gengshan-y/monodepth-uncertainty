@@ -1,4 +1,6 @@
 __pycache__
+mapping.ipynb
+*.png
 *.pyc
 .ipynb_checkpoints
 utils/*.npy

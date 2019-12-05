@@ -2,6 +2,7 @@
 *.jpg
 *.pfm
 *.png
+!figs/*.png
 __pycache__
 mapping.ipynb
 *.pyc

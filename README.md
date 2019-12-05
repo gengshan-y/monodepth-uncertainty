@@ -1,5 +1,8 @@
-# monodepth uncertainty
+# Monodepth uncertainty
+
 [project webpage](http://www.contrib.andrew.cmu.edu/~gengshay/iros19mono)
+
+<img src="./figs/multi-modal.png" width="600">
 
 ## Requirements
 - python 3.6.7

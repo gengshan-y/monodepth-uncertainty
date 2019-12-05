@@ -5,6 +5,7 @@ import numpy as np
 from monodepth_model import *
 import pdb
 import time
+from utils.io import save_pfm
 
 
 monodepth_parameters = namedtuple('parameters',
@@ -28,6 +29,7 @@ params = monodepth_parameters(
 #left_numpy = cv2.imread('/data/gengshay/KITTI/2011_09_26/2011_09_26_drive_0002_sync/image_02/data/0000000069.jpg')
 #left_numpy = cv2.imread('/data/gengshay/nyuv2/JPEGImages/0001.jpg')
 left_numpy = cv2.imread(args.input_image)
+origin_shape = left_numpy.shape[:2]
 
 #shape = [384,1152]
 #shape = [480,640]
@@ -74,7 +76,14 @@ entropy[np.isnan(entropy)] = 0
 resp = output[3].squeeze()
 
 # output
+depth_ml = cv2.resize(depth_ml, origin_shape[::-1])
+depth_exp = cv2.resize(depth_exp, origin_shape[::-1])
+entropy = cv2.resize(entropy, origin_shape[::-1])
 cv2.imwrite('./output-ml.png',   depth_ml/args.max_depth * 255.)
 cv2.imwrite('./output-exp.png', depth_exp/args.max_depth * 255.)
 cv2.imwrite('./output-entropy.png',entropy/entropy.max()*255)
-cv2.imwrite('./output-resp.png', resp*255)
+
+# store unscaled depth image in .pfm format
+# .pfm can be visualized using cvkit: http://vision.middlebury.edu/stereo/code/
+with open('./disp0.pfm','w') as f:
+    save_pfm(f,np.clip(depth_exp,1,args.max_depth)[::-1,:])

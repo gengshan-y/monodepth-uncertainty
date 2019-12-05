@@ -1,3 +1,7 @@
+*.txt
+*.jpg
+*.pfm
+*.png
 __pycache__
 mapping.ipynb
 *.pyc

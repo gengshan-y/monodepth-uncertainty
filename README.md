@@ -38,7 +38,7 @@ NYU expected depth
 NYU entropy
 
 ## Training
-If you are interested in training the binary depth estimator, see [the tf code for training](https://drive.google.com/file/d/1IeYvglf94pRM5lZvuOQeGF62XxrrIrbS/view?usp=sharing). Note the training code is modified from [Monodepth](https://github.com/mrharicot/monodepth) and is very messy. It is recommended to start from Monodepth and only modify the dataloader as well as the loss function.
+If you are interested in training the binary depth estimator, see [the tf code for training](https://drive.google.com/file/d/1IeYvglf94pRM5lZvuOQeGF62XxrrIrbS/view?usp=sharing). See README for details to train the model. Note the training code is very messy. It is recommended to start from [Monodepth](https://github.com/mrharicot/monodepth) and use our code as a reference to modify the dataloader as well as the loss functions. 
 
 ## Citation
 ```

@@ -1,104 +1,125 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- Style from https://people.eecs.berkeley.edu/~janner/o2p2/ -->
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-    <script src="./files/head.js"></script>        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 
-    <title>Inferring distributions over depth from a single image</title>
-    <link rel="stylesheet" href="./files/font.css">
-    <link rel="stylesheet" href="./files/main.css">
+  <script src="./files/head.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <style type="text/css">/**
+  <title>Inferring distributions over depth from a single image</title>
+  <link rel="stylesheet" href="./files/font.css">
+  <link rel="stylesheet" href="./files/main.css">
+
+  <style type="text/css">
+    /**
  * Style sheet used by new LibX tooltip code
  */
 
-/* We insert a <div> with libx-tooltip style under the body.
+    /* We insert a <div> with libx-tooltip style under the body.
  * This will inherit body's style - we can't afford to inherit undesirable 
  * styles and we must redefine what we need.  OTOH, some things, e.g.
  * font-size, might be ok to be inherited to stay within the page's tone.
  */
-.libx-tooltip {
-    display: none;
-    overflow: visible;
-    padding: 5px;
-    z-index: 100;
-    background-color: #eee;
-    color: #000;
-    font-weight: normal;
-    font-style: normal;
-    text-align: left;
-    border: 2px solid #666;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-}
+    .libx-tooltip {
+      display: none;
+      overflow: visible;
+      padding: 5px;
+      z-index: 100;
+      background-color: #eee;
+      color: #000;
+      font-weight: normal;
+      font-style: normal;
+      text-align: left;
+      border: 2px solid #666;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+    }
 
-.libx-tooltip p {
-    /* override default 1em margin to keep paragraphs inside a tooltip closer together. */
-    margin: .2em;
-}
-</style><style type="text/css">/**
+    .libx-tooltip p {
+      /* override default 1em margin to keep paragraphs inside a tooltip closer together. */
+      margin: .2em;
+    }
+  </style>
+  <style type="text/css">
+    /**
  * Style sheet used by LibX autolinking code
  */
-.libx-autolink {
-}
+    .libx-autolink {}
+  </style>
+</head>
 
-</style></head>
+<body>
 
-  <body>
+  <div class="outercontainer">
+    <div class="container">
 
-    <div class="outercontainer">
-      <div class="container">
+      <div class="content project_title" , style="text-align: center">
+        <h1>Inferring distributions over depth from a single image</h1>
+        <big style="color:grey;">
+          IROS 2019
+        </big>
+        <p id="authors">
+        <table align="center" style="width:60%; text-align:center; table-layout: fixed">
+          <tr>
+            <th><a href="https://gengshan-y.github.io/">Gengshan Yang<sup>1</sup></a></th>
+            <th><a href="https://www.cs.cmu.edu/~peiyunh/">Peiyun Hu<sup>1</sup></a></th>
+            <th><a href="http://www.cs.cmu.edu/~deva/">Deva Ramanan<sup>1,2</sup></a></th>
+          </tr>
+        </table>
+        <sup>1</sup>Robotics Institute, Carnegie Mellon University<br>
+        <sup>2</sup>Argo AI
+        </p>
+      </div>
 
-        <div class="content project_title", style="text-align: center">
-          <h1>Inferring distributions over depth from a single image</h1>
-	<big style="color:grey;">
-                    IROS 2019
-        </big>    
-	<p id="authors">
-      <table align="center" style="width:60%; text-align:center; table-layout: fixed">
-        <tr>
-	      <th><a href="https://gengshan-y.github.io/">Gengshan Yang<sup>1</sup></a></th>
-	      <th><a href="https://www.cs.cmu.edu/~peiyunh/">Peiyun Hu<sup>1</sup></a></th>
-          <th><a href="http://www.cs.cmu.edu/~deva/">Deva Ramanan<sup>1,2</sup></a></th>
-        </tr>
-      </table>
-      <sup>1</sup>Robotics Institute, Carnegie Mellon University<br>
-      <sup>2</sup>Argo AI
-	    </p>
-        </div>
+      <div class="content">
 
-        <div class="content">
-        
         <div class="content">
           <div class="text">
             <h3>Abstract</h3>
-            <p>When building geometric scene understanding system for autonomous vehicles, it is crucial to know when the system might fail. Most contemporary approaches cast the problem as depth regression, whose output is a depth value for each pixel. Such approaches cannot diagnose when failures might occur. One attractive alternative is a deep Bayesian network, which captures uncertainty in both model parameters and ambiguous sensor measurements. However, estimating uncertainties is often slow and the distributions are often limited to be uni-modal. In this paper, we recast the continuous problem of depth regression as discrete binary classification, whose output is an un-normalized probabilistic distribution over possible depths for each pixel. Such output allows one to reliably and efficiently capture multi-modal depth distributions in ambiguous cases, such as depth discontinuitiesand reflective surfaces. Results on standard benchmarks show that our method produces accurate depth predictions and significantly better uncertainty estimations than prior arts while running near real-time. Finally, by making use of uncertainties of the predicted distribution, we significantly reduces streak-like artifacts, and improves accuracy as well as momory efficiency in 3D maps built with monocular depth estimation.</p>
+            <p>When building geometric scene understanding system for autonomous vehicles, it is crucial to know when
+              the system might fail. Most contemporary approaches cast the problem as depth regression, whose output is
+              a depth value for each pixel. Such approaches cannot diagnose when failures might occur. One attractive
+              alternative is a deep Bayesian network, which captures uncertainty in both model parameters and ambiguous
+              sensor measurements. However, estimating uncertainties is often slow and the distributions are often
+              limited to be uni-modal. In this paper, we recast the continuous problem of depth regression as discrete
+              binary classification, whose output is an un-normalized probabilistic distribution over possible depths
+              for each pixel. Such output allows one to reliably and efficiently capture multi-modal depth distributions
+              in ambiguous cases, such as depth discontinuitiesand reflective surfaces. Results on standard benchmarks
+              show that our method produces accurate depth predictions and significantly better uncertainty estimations
+              than prior arts while running near real-time. Finally, by making use of uncertainties of the predicted
+              distribution, we significantly reduces streak-like artifacts, and improves accuracy as well as momory
+              efficiency in 3D maps built with monocular depth estimation.</p>
           </div>
-      <div id="teaser" style="margin: 12px; text-align: left;">
-        <a href="https://arxiv.org/abs/1912.06268">[Paper]</a>
-        <a href="https://github.com/gengshan-y/monodepth-uncertainty">[Code]</a>
-        <a href="https://docs.google.com/presentation/d/1-rSD755KXSNRJTCbFR5YWtDXNF9S7aPevx-R2CHn7fY/edit?usp=sharing">[Slides]</a>
-        <a href="./bibtex/iros19mono.bib">[Bibtex]</a>
-      </div>
+          <div id="teaser" style="margin: 12px; text-align: left;">
+            <a href="https://arxiv.org/abs/1912.06268">[Paper]</a>
+            <a href="https://github.com/gengshan-y/monodepth-uncertainty">[Code]</a>
+            <a
+              href="https://docs.google.com/presentation/d/1-rSD755KXSNRJTCbFR5YWtDXNF9S7aPevx-R2CHn7fY/edit?usp=sharing">[Slides]</a>
+            <a href="./iros19mono.bib">[Bibtex]</a>
+          </div>
         </div>
 
 
 
 
         <div class="content">
-<!--           <div class="text">
+          <!--           <div class="text">
             <h3>Spotlight Video</h3>
           </div> -->
           <br>
           <div class="project_headline">
-	    <p>Demo for dense mapping:</p>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/y4WLA2nyj9A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <!--  <p>If you cannot access YouTube, please <a href="./">download our video here</a>.</p>-->
-          </div>
+            <p>Demo for dense mapping:</p>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/y4WLA2nyj9A" frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <!--  <p>If you cannot access YouTube, please <a href="./">download our video here</a>.</p>-->
           </div>
         </div>
-<!--
+      </div>
+      <!--
         <div class="content">
           <div class="text">
             <h3>Code</h3>
@@ -115,7 +136,7 @@
         </div>
 -->
 
-<!-- 
+      <!-- 
         <div class="content">
           <div class="text">
             <h3>Code</h3>
@@ -125,15 +146,18 @@
           </div>
         </div>
  -->
-      </div>
     </div>
+  </div>
 
-    <div class="content">
-	    <h2>Acknowledgments</h2>
-	    <p>This work was supported by the <a href="https://labs.ri.cmu.edu/argo-ai-center/">CMU Argo AI Center for Autonomous Vehicle Research</a>.</p>
-    </div>
-<br><br><br><br>  
+  <div class="content">
+    <h2>Acknowledgments</h2>
+    <p>This work was supported by the <a href="https://labs.ri.cmu.edu/argo-ai-center/">CMU Argo AI Center for
+        Autonomous Vehicle Research</a>.</p>
+  </div>
+  <br><br><br><br>
 
 
-</div></body></html>
+  </div>
+</body>
 
+</html>
